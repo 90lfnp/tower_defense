@@ -252,10 +252,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tilePrefebs:
-  - {fileID: 6351433629181426408, guid: 6a8b17e5d95094d4889dec596b80f733, type: 3}
-  - {fileID: 2135970172826180696, guid: 94db18cb5e78d894bafe570ca4c199e4, type: 3}
-  - {fileID: 1346073154290584641, guid: 5bdfe45a580a79549a55acd02580fbaa, type: 3}
-  - {fileID: 3887073267738763239, guid: e094850f1ced8ec408655d0cf7e92f86, type: 3}
-  - {fileID: 9041052607332450535, guid: 0a51077cbd906804faee0be9dc48c0bd, type: 3}
-  - {fileID: 6568337409226534629, guid: 63481f1850939684ca0abed154432c8e, type: 3}
+  - {fileID: 1182665851058827557, guid: 85e6cb4f29dcf754abd9b8cd4b8c3d29, type: 3}
+  - {fileID: 2131725170914012476, guid: 866b69f18f7e1d146a988b2b2cf6616e, type: 3}
+  - {fileID: 7738021120448955503, guid: a8bdc5ada9cd4d5409ba8ce580c98ddf, type: 3}
+  - {fileID: 3483117999315413372, guid: 5b8047130fe498946bbc6addd98770b8, type: 3}
   cameraMovement: {fileID: 519420030}

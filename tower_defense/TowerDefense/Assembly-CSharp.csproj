@@ -63,7 +63,6 @@
     <Compile Include="Assets\Scripts\CameraMovement.cs" />
     <Compile Include="Assets\Scripts\LevelManager.cs" />
     <None Include="Assets\Resources\level.txt" />
-    <None Include="Assets\read me.txt" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>D:/github/tower_defense/tower_defense/TowerDefense/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
