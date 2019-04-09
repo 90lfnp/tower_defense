@@ -11,6 +11,8 @@ public class LevelManager : MonoBehaviour
     [SerializeField]
     private CameraMovement cameraMovement;
 
+    public Dictionary<Point, TileScript> Tiles { get; set; }
+
     public float tileSize
     {
         get {return tilePrefebs[0].GetComponent<SpriteRenderer>().sprite.bounds.size.x; }
@@ -20,6 +22,8 @@ public class LevelManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+       
+
         CreateLevel();
     }
 
@@ -29,8 +33,11 @@ public class LevelManager : MonoBehaviour
         
     }
 
+ 
     private void CreateLevel()
     {
+        Tiles = new Dictionary<Point, TileScript>(); 
+
         string[] mapData = ReadLevelText();
        
         int mapX = mapData[0].ToCharArray().Length;
@@ -46,18 +53,24 @@ public class LevelManager : MonoBehaviour
 
             for (int x = 0; x < mapX; x++)
             {
-                maxTile = PlaceTile(newTiles[x].ToString(), x, y, worldStart);
+                PlaceTile(newTiles[x].ToString(), x, y, worldStart);
             }
         }
 
+        maxTile = Tiles[new Point(mapX - 1, mapY - 1)].transform.position;
+
         cameraMovement.SetLimits(new Vector3(maxTile.x + tileSize, maxTile.y - tileSize));
     }
-    private Vector3 PlaceTile(string tileType, int x, int y, Vector3 worldStart)
+    private void PlaceTile(string tileType, int x, int y, Vector3 worldStart)
     {
         int tileIndex = int.Parse(tileType);
-        GameObject newTile = Instantiate(tilePrefebs[tileIndex]);
-        newTile.transform.position = new Vector3(worldStart.x+ (tileSize * x),worldStart.y - (tileSize * y), 0);
-        return newTile.transform.position;
+        TileScript newTile = Instantiate(tilePrefebs[tileIndex]).GetComponent<TileScript>();
+
+        newTile.GetComponent<TileScript>().Setup(new Point(x, y), new Vector3(worldStart.x + (tileSize * x), worldStart.y - (tileSize * y), 0));
+
+        Tiles.Add(new Point(x, y), newTile);
+
+   
     }
     
     private string[] ReadLevelText()
