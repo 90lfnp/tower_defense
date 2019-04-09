@@ -3,13 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class LevelManager : MonoBehaviour
+public class LevelManager : Singleton<LevelManager>
 {
     [SerializeField]
     private GameObject[] tilePrefebs;
 
     [SerializeField]
     private CameraMovement cameraMovement;
+
+    [SerializeField]
+    private Transform map;
+
+    private Point blueSpawn, redSpawn;
+
+    [SerializeField]
+    private GameObject bluePortalPrefeb;
+
+    [SerializeField]
+    private GameObject redPortalPrefeb;
+
 
     public Dictionary<Point, TileScript> Tiles { get; set; }
 
@@ -25,6 +37,8 @@ public class LevelManager : MonoBehaviour
        
 
         CreateLevel();
+
+
     }
 
     // Update is called once per frame
@@ -33,6 +47,7 @@ public class LevelManager : MonoBehaviour
         
     }
 
+   
  
     private void CreateLevel()
     {
@@ -60,15 +75,17 @@ public class LevelManager : MonoBehaviour
         maxTile = Tiles[new Point(mapX - 1, mapY - 1)].transform.position;
 
         cameraMovement.SetLimits(new Vector3(maxTile.x + tileSize, maxTile.y - tileSize));
+
+        SpawnPortals();
     }
     private void PlaceTile(string tileType, int x, int y, Vector3 worldStart)
     {
         int tileIndex = int.Parse(tileType);
         TileScript newTile = Instantiate(tilePrefebs[tileIndex]).GetComponent<TileScript>();
 
-        newTile.GetComponent<TileScript>().Setup(new Point(x, y), new Vector3(worldStart.x + (tileSize * x), worldStart.y - (tileSize * y), 0));
+        newTile.GetComponent<TileScript>().Setup(new Point(x, y), new Vector3(worldStart.x + (tileSize * x), worldStart.y - (tileSize * y), 0), map);
 
-        Tiles.Add(new Point(x, y), newTile);
+       
 
    
     }
@@ -81,4 +98,18 @@ public class LevelManager : MonoBehaviour
 
         return data.Split('-');
     }
+
+    private void SpawnPortals()
+    {
+        blueSpawn = new Point(0, 4);
+
+        Instantiate(bluePortalPrefeb, Tiles[blueSpawn].GetComponent<TileScript>().WorldPosition, Quaternion.identity);
+
+        redSpawn = new Point(19, 4);
+
+        Instantiate(redPortalPrefeb, Tiles[redSpawn].GetComponent<TileScript>().WorldPosition, Quaternion.identity);
+    }
+    
+
+
 }
