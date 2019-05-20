@@ -22,6 +22,8 @@ public class LevelManager : Singleton<LevelManager>
     [SerializeField]
     private GameObject redPortalPrefeb;
 
+    private Point mapSize;
+
 
     public Dictionary<Point, TileScript> Tiles { get; set; }
 
@@ -54,6 +56,8 @@ public class LevelManager : Singleton<LevelManager>
         Tiles = new Dictionary<Point, TileScript>(); 
 
         string[] mapData = ReadLevelText();
+
+        mapSize = new Point(mapData[0].ToCharArray().Length, mapData.Length);
        
         int mapX = mapData[0].ToCharArray().Length;
         int mapY = mapData.Length;
@@ -108,6 +112,11 @@ public class LevelManager : Singleton<LevelManager>
         redSpawn = new Point(19, 4);
 
         Instantiate(redPortalPrefeb, Tiles[redSpawn].GetComponent<TileScript>().WorldPosition, Quaternion.identity);
+    }
+
+    public bool InBounds(Point position)
+    {
+        return position.X >= 0 && position.Y >= 0 && position.X < mapSize.X && position.Y < mapSize.Y;
     }
     
 

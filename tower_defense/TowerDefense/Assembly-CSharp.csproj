@@ -60,6 +60,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Astar\Astar.cs" />
+    <Compile Include="Assets\Scripts\Astar\AstarDebugger.cs" />
+    <Compile Include="Assets\Scripts\Astar\Node.cs" />
     <Compile Include="Assets\Scripts\CameraMovement.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\Hover.cs" />

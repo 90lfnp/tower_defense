@@ -99,12 +99,12 @@ TextureImporter:
       name: castle_0
       rect:
         serializedVersion: 2
-        x: 1
-        y: 6
+        x: 0
+        y: 8
         width: 509
         height: 503
       alignment: 9
-      pivot: {x: 0.5, y: 0.2}
+      pivot: {x: 0.75, y: 0.25}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -8,12 +9,31 @@ public class GameManager : Singleton<GameManager>
 
     public TowerBtn ClickedBtn { get; set; }
 
+    private int currency;
+
+    [SerializeField]
+    private Text currencyTxt;
+
+    public int Currency
+    {
+        get
+        {
+            return currency;
+        }
+
+        set
+        {
+            this.currency = value;
+            this.currencyTxt.text = value.ToString() + "<color=yellow>$</color>";
+        }
+    }
+
 
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        Currency = 250;
     }
 
     // Update is called once per frame
@@ -24,13 +44,28 @@ public class GameManager : Singleton<GameManager>
 
     public void PickTower(TowerBtn towerBtn)
     {
-        this.ClickedBtn = towerBtn;
-        Hover.Instance.Activate(towerBtn.Sprite); 
+        if (Currency >= towerBtn.Price)
+        {   
+            this.ClickedBtn = towerBtn;
+            Hover.Instance.Activate(towerBtn.Sprite);
+        }
+          
+            
+           
+        
+
+        
     }
 
     public void BuyTower()
     {
-        Hover.Instance.Deactivate();
+        if (Currency >= ClickedBtn.Price)
+        {
+            Currency -= ClickedBtn.Price;
+
+            Hover.Instance.Deactivate();
+        }
+       
         
     }
 
