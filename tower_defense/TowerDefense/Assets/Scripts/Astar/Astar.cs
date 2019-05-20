@@ -38,7 +38,13 @@ public static class Astar
                 if (LevelManager.Instance.InBounds(neighbourPos) && LevelManager.Instance.Tiles[neighbourPos].WalkAble && neighbourPos != currentNode.GridPosition)
                 {
                     Node neighbour = nodes[neighbourPos];
-                    
+
+                    if (!openList.Contains(neighbour))
+                    {
+                        openList.Add(neighbour);
+                    }
+
+                    neighbour.CalcValues(currentNode);
                 }
 
                

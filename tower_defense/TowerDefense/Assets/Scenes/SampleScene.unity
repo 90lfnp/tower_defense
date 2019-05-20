@@ -1396,7 +1396,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67a3b55080268484289bc24cad721ebd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blankTile: {fileID: 21300000, guid: 9c4a67ba8998fa7428c891aabd1093b0, type: 3}
+  blankTile: {fileID: 21300000, guid: 15c83c398a486514dab9d2a650e5789a, type: 3}
+  arrowPrefab: {fileID: 5344052511840789396, guid: 7f395449670412441abad940219628c8,
+    type: 3}
 --- !u!4 &1766480508
 Transform:
   m_ObjectHideFlags: 0
