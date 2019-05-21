@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,7 +17,7 @@ public static class Astar
         }
     }
 
-    public static void GetPath(Point start)
+    public static void GetPath(Point start, Point goal)
     {
         if (nodes == null)
         {
@@ -24,6 +25,8 @@ public static class Astar
         }
 
         HashSet<Node> openList = new HashSet<Node>();
+
+        HashSet<Node> closedList = new HashSet<Node>();
 
         Node currentNode = nodes[start];
 
@@ -37,6 +40,17 @@ public static class Astar
 
                 if (LevelManager.Instance.InBounds(neighbourPos) && LevelManager.Instance.Tiles[neighbourPos].WalkAble && neighbourPos != currentNode.GridPosition)
                 {
+                    int gCost = 0;
+
+                    if (Math.Abs(x - y) == 1)
+                    {
+                        gCost = 10;
+                    }
+                    else
+                    {
+                        gCost = 14;
+                    }
+
                     Node neighbour = nodes[neighbourPos];
 
                     if (!openList.Contains(neighbour))
@@ -44,7 +58,7 @@ public static class Astar
                         openList.Add(neighbour);
                     }
 
-                    neighbour.CalcValues(currentNode);
+                    neighbour.CalcValues(currentNode, nodes[goal] ,gCost);
                 }
 
                
@@ -52,7 +66,10 @@ public static class Astar
             }
         }
 
+        openList.Remove(currentNode);
+        closedList.Add(currentNode);
+
         //remove later
-        GameObject.Find("AstarDebugger").GetComponent<AstarDebugger>().DebugPath(openList);
+        GameObject.Find("AstarDebugger").GetComponent<AstarDebugger>().DebugPath(openList, closedList);
     }
 }

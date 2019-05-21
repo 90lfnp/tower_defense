@@ -1307,7 +1307,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 208.5, y: 144.99998}
+  m_AnchoredPosition: {x: 253, y: 109.5}
   m_SizeDelta: {x: 150, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1645678575
@@ -1398,6 +1398,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blankTile: {fileID: 21300000, guid: 15c83c398a486514dab9d2a650e5789a, type: 3}
   arrowPrefab: {fileID: 5344052511840789396, guid: 7f395449670412441abad940219628c8,
+    type: 3}
+  debugTilePrefab: {fileID: 7255846533006936649, guid: 31cddeca2f9e4a84bb7b7817d64600d3,
     type: 3}
 --- !u!4 &1766480508
 Transform:
@@ -1741,7 +1743,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 75, y: 127.5}
+  m_AnchoredPosition: {x: 31.6, y: 92}
   m_SizeDelta: {x: 700, y: 65}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2140872862
