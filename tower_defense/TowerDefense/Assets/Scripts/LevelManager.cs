@@ -84,7 +84,6 @@ public class LevelManager : Singleton<LevelManager>
     }
     private void PlaceTile(string tileType, int x, int y, Vector3 worldStart)
     {
-        
         int tileIndex = int.Parse(tileType);
         TileScript newTile = Instantiate(tilePrefebs[tileIndex]).GetComponent<TileScript>();
         

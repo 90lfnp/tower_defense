@@ -55,6 +55,10 @@ public static class Astar
                         }
                         else
                         {
+                            if (!ConnectedDiagonally(currentNode, nodes[neighbourPos]))
+                            {
+                                continue;
+                            }
                             gCost = 14;
                         }
 
@@ -106,6 +110,26 @@ public static class Astar
         
 
         //remove later
-        GameObject.Find("AstarDebugger").GetComponent<AstarDebugger>().DebugPath(openList, closedList);
+        GameObject.Find("AstarDebugger").GetComponent<AstarDebugger>().DebugPath(openList, closedList, finalpath);
+    }
+
+    private static bool ConnectedDiagonally(Node currentNode, Node neighbor)
+    {
+        Point direction = neighbor.GridPosition - currentNode.GridPosition;
+
+        Point first = new Point(currentNode.GridPosition.X + direction.X, currentNode.GridPosition.Y);
+
+        Point second = new Point(currentNode.GridPosition.X, currentNode.GridPosition.Y + direction.Y);
+
+        if(LevelManager.Instance.InBounds(first) && !LevelManager.Instance.Tiles[first].WalkAble)
+        {
+            return false;
+        }
+        if (LevelManager.Instance.InBounds(second) && !LevelManager.Instance.Tiles[second].WalkAble)
+        {
+            return false;
+        }
+
+        return true;
     }
 }
