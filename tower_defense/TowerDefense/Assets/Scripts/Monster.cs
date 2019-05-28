@@ -22,6 +22,8 @@ public class Monster : MonoBehaviour
 
     private Stack<Node> path;
 
+    private List<Debuff> debuffs = new List<Debuff>();
+
     [SerializeField]
     private Element elementType;
 
@@ -43,6 +45,7 @@ public class Monster : MonoBehaviour
 
     private void Update()
     {
+        //HandleDebuffs();
         Move();
     }
 
@@ -145,15 +148,17 @@ public class Monster : MonoBehaviour
         {
             if (dmgSource == elementType)
             {
-                damage = damage / invulnerability;
-                invulnerability++;
+                damage = damage * invulnerability;
+                //invulnerability++;
             }
             
             health.CurrentVal -= damage;
 
             if (health.CurrentVal <= 0)
             {
-                GameManager.Instance.Currency += 100;
+                SoundManager.Instance.PlaySFX("ou");
+
+                GameManager.Instance.Currency += 50;
 
                 GetComponent<Monster>().Release();
 
@@ -165,5 +170,21 @@ public class Monster : MonoBehaviour
         }
         
     }
+
+    //public void AddDebuff(Debuff debuff)
+    //{
+    //    if(!debuffs.Exists(x=> x.GetType()  == debuff.GetType()))
+    //    {
+    //       debuffs.Add(debuff);
+    //    }
+    //}
+
+    //private void HandleDebuffs()
+    //{
+    //    foreach (Debuff debuff in debuffs)
+    //    {
+    //        //debuff.Update();
+    //    }
+    //}
 
 }

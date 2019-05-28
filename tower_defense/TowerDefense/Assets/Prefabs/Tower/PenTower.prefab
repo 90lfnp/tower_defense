@@ -110,9 +110,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectileType: TestProjectile
-  projectileSpeed: 3
-  damage: 5
-  attackCooldown: 3
+  projectileSpeed: 4
+  damage: 10
+  attackCooldown: 2
 --- !u!1 &8017187895458709980
 GameObject:
   m_ObjectHideFlags: 0

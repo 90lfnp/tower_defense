@@ -110,9 +110,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectileType: BombProjectile
-  projectileSpeed: 3
-  damage: 5
-  attackCooldown: 3
+  projectileSpeed: 4
+  damage: 13
+  attackCooldown: 2.5
 --- !u!1 &6213152408370348218
 GameObject:
   m_ObjectHideFlags: 0

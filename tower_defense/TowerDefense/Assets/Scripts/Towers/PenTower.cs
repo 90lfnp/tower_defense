@@ -8,5 +8,10 @@ public class PenTower : Tower
     {
         ElementType = Element.PEN;
     }
+
+    public override Debuff GetDebuff()
+    {
+        return null;
+    }
 }
 

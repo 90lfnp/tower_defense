@@ -4,15 +4,20 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+
+public delegate void CurrencyChanged();
+
 public class GameManager : Singleton<GameManager>
 {
-   
+    public event CurrencyChanged Changed;
 
     public TowerBtn ClickedBtn { get; set; }
 
     private int currency;
 
     private int wave = 0;
+
+    private int increaseHealth = 0;
 
     private int lives;
 
@@ -43,8 +48,16 @@ public class GameManager : Singleton<GameManager>
     [SerializeField]
     private Text sellTxt;
 
+    [SerializeField]
+    private GameObject inGameMenu;
+
+    [SerializeField]
+    private GameObject optionMenu;
+
     private Tower selectedTower;
 
+
+    public List<int> score = new List<int>();
 
     private List<Monster> activeMonsters = new List<Monster>();
 
@@ -66,6 +79,8 @@ public class GameManager : Singleton<GameManager>
         {
             this.currency = value;
             this.currencyTxt.text = value.ToString() + "<color=yellow>$</color>";
+
+            OnCurrencyChanged();
         }
     }
 
@@ -101,7 +116,7 @@ public class GameManager : Singleton<GameManager>
     void Start()
     {
         Lives = 10;
-        Currency = 3000;
+        Currency = 300;
     }
 
     // Update is called once per frame
@@ -127,6 +142,17 @@ public class GameManager : Singleton<GameManager>
             Currency -= ClickedBtn.Price;
 
             Hover.Instance.Deactivate();
+        }
+    }
+
+    public  void OnCurrencyChanged()
+    {
+        
+        if (Changed != null)
+        {
+            Changed();
+            Debug.Log("change");
+
         }
     }
 
@@ -163,8 +189,18 @@ public class GameManager : Singleton<GameManager>
     private void HandleEscape()
     {
         if (Input.GetKeyDown(KeyCode.Escape)) 
-        {
-            Hover.Instance.Deactivate();
+        {   
+            if (selectedTower == null && !Hover.Instance.IsVisible)
+            {
+                ShowInGameMenu();
+            }
+            else if (Hover.Instance.IsVisible)
+            {
+                DropTower();
+            }else if(selectedTower != null)
+            {
+                DeselectTower();
+            }
         }
     }
 
@@ -196,28 +232,31 @@ public class GameManager : Singleton<GameManager>
             {
                 case 0:
                     type = "NormalOrc";
-                    health = 15;
+                    health = 40;
                     break;
                 case 1:
                     type = "BossOrc";
-                    health = 30;
+                    health = 50;
                     break;
                 case 2:
                     type = "TankOrc";
-                    health = 30;
+                    health = 60;
                     break;
                 case 3:
                     type = "MageOrc";
-                    health = 10;
+                    health = 20;
                     break;
+            }
+            if (wave % 2 == 0)
+            {
+                increaseHealth += 10;
+                health += increaseHealth;
+
             }
             Monster monster = Pool.GetObject(type).GetComponent<Monster>();
             monster.Spawn(health);
 
-            if (wave % 3 == 0)
-            {
-                health += 5;
-            }
+            
 
             activeMonsters.Add(monster);
 
@@ -247,6 +286,13 @@ public class GameManager : Singleton<GameManager>
         {
             gameOver = true;
             gameOverMenu.SetActive(true);
+            //score.Add(wave);
+            //score.Sort();
+            //score.Reverse();
+            //for (int i = 0; i < score.Count; i++)
+            //{
+            //    Debug.Log((i+1).ToString() + ": " + score[i].ToString()+ " Waves");
+            //}
         }
     }
 
@@ -259,7 +305,8 @@ public class GameManager : Singleton<GameManager>
 
     public void QuitGame()
     {
-        Application.Quit();
+        Time.timeScale = 1;
+        SceneManager.LoadScene(0);
     }
 
     public void SellTower()
@@ -274,5 +321,43 @@ public class GameManager : Singleton<GameManager>
 
             DeselectTower();
         }
+    }
+
+    public void ShowInGameMenu()
+    {
+        if (optionMenu.activeSelf)
+        {
+            ShowMain();
+        }
+        else
+        {
+            inGameMenu.SetActive(!inGameMenu.activeSelf);
+            if (!inGameMenu.activeSelf)
+            {
+                Time.timeScale = 1;
+            }
+            else
+            {
+                Time.timeScale = 0;
+            }
+        }
+        
+    }
+
+    private void DropTower()
+    {
+        ClickedBtn = null;
+        Hover.Instance.Deactivate();
+    }
+
+    public void ShowOption()
+    {
+        inGameMenu.SetActive(false);
+        optionMenu.SetActive(true);
+    }
+    public void ShowMain()
+    {
+        inGameMenu.SetActive(true);
+        optionMenu.SetActive(false);
     }
 }

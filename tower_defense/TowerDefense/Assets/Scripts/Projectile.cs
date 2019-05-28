@@ -46,6 +46,10 @@ public class Projectile : MonoBehaviour
             GameManager.Instance.Pool.ReleaseObject(gameObject);
         }
     }
+    //private void ApplyDebuff()
+    //{
+    //    target.AddDebuff(parent.GetDebuff());
+    //}
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -57,10 +61,14 @@ public class Projectile : MonoBehaviour
                 target.TakeDamage(parent.Damage, elementType);
 
                 GameManager.Instance.Pool.ReleaseObject(gameObject);
+
+                //ApplyDebuff();
             }
             
 
             
         }
     }
+
+   
 }

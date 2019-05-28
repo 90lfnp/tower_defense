@@ -195,12 +195,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5142d964bcc4764ab0b41f941c3dd9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4
+  speed: 3
   health:
     bar: {fileID: 867731690125501360}
     maxVal: 0
     currentVal: 0
-  elementType: 2
+  elementType: 1
 --- !u!61 &3086818095903403761
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -115,6 +115,8 @@ public abstract class Tower : MonoBehaviour
             monsters.Enqueue(other.GetComponent<Monster>());
         }
     }
+    public abstract Debuff GetDebuff();
+    
 
     public void OnTriggerExit2D(Collider2D other)
     {

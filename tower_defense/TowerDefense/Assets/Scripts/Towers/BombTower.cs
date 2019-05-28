@@ -8,4 +8,9 @@ public class BombTower : Tower
     {
         ElementType = Element.BOMB;
     }
+
+    public override Debuff GetDebuff()
+    {
+        return null;
+    }
 }

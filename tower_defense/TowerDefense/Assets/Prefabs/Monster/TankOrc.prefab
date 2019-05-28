@@ -200,6 +200,7 @@ MonoBehaviour:
     bar: {fileID: 5175631546548584204}
     maxVal: 0
     currentVal: 0
+  elementType: 2
 --- !u!61 &2960685282737510140
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -217,7 +218,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.2666667, y: 1.3888888}
+    oldSize: {x: 1.52, y: 1.6666666}
     newSize: {x: 1.0083333, y: 1.0666667}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
