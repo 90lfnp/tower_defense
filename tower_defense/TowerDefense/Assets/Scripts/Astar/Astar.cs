@@ -18,7 +18,7 @@ public static class Astar
         }
     }
 
-    public static void GetPath(Point start, Point goal)
+    public static Stack<Node> GetPath(Point start, Point goal)
     {
         if (nodes == null)
         {
@@ -107,10 +107,10 @@ public static class Astar
             }
         }
 
-        
+        return finalpath;
 
         //remove later
-        GameObject.Find("AstarDebugger").GetComponent<AstarDebugger>().DebugPath(openList, closedList, finalpath);
+        //GameObject.Find("AstarDebugger").GetComponent<AstarDebugger>().DebugPath(openList, closedList, finalpath);
     }
 
     private static bool ConnectedDiagonally(Node currentNode, Node neighbor)

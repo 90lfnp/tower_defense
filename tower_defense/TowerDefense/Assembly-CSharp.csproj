@@ -60,18 +60,30 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\DeathBehavior.cs" />
     <Compile Include="Assets\Scripts\Astar\Astar.cs" />
     <Compile Include="Assets\Scripts\Astar\AstarDebugger.cs" />
     <Compile Include="Assets\Scripts\Astar\DebugTile.cs" />
     <Compile Include="Assets\Scripts\Astar\Node.cs" />
+    <Compile Include="Assets\Scripts\BarScript.cs" />
     <Compile Include="Assets\Scripts\CameraMovement.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\Hover.cs" />
     <Compile Include="Assets\Scripts\LevelManager.cs" />
+    <Compile Include="Assets\Scripts\Monster.cs" />
+    <Compile Include="Assets\Scripts\ObjectPool.cs" />
     <Compile Include="Assets\Scripts\Point.cs" />
+    <Compile Include="Assets\Scripts\Portal.cs" />
+    <Compile Include="Assets\Scripts\Projectile.cs" />
     <Compile Include="Assets\Scripts\Singleton.cs" />
+    <Compile Include="Assets\Scripts\Stat.cs" />
     <Compile Include="Assets\Scripts\TileScript.cs" />
     <Compile Include="Assets\Scripts\TowerBtn.cs" />
+    <Compile Include="Assets\Scripts\Towers\BombTower.cs" />
+    <Compile Include="Assets\Scripts\Towers\FireTower.cs" />
+    <Compile Include="Assets\Scripts\Towers\PenTower.cs" />
+    <Compile Include="Assets\Scripts\Towers\StoneTower.cs" />
+    <Compile Include="Assets\Scripts\Towers\Tower.cs" />
     <None Include="Assets\Resources\level.txt" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>D:/github/tower_defense/tower_defense/TowerDefense/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>

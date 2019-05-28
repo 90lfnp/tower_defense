@@ -5,10 +5,13 @@ using UnityEngine.EventSystems;
 
 public class TileScript : MonoBehaviour
 {
+    
 
     public Point GridPosition { get;private set; }
 
-    public bool IsEmpty { get;private set; }
+    public bool IsEmpty { get; set; }
+
+    private Tower myTower;
 
     private Color32 fullColor = new Color32(255, 90, 90, 255);
     private Color32 emptyColor = new Color32(96, 255, 90, 255);
@@ -39,10 +42,10 @@ public class TileScript : MonoBehaviour
         
     }
 
-    public void Setup(Point gridPos, Vector3 worldPos, Transform parent)
+    public void Setup(Point gridPos, Vector3 worldPos, Transform parent, bool walkAble, bool isEmpty)
     {
-        WalkAble = true;
-        IsEmpty = true;
+        WalkAble = walkAble;
+        IsEmpty = isEmpty;
         this.GridPosition = gridPos;
         transform.position = worldPos;
 
@@ -55,10 +58,6 @@ public class TileScript : MonoBehaviour
 
     private void OnMouseOver()
     {
-        
-
-
-
         if (!EventSystem.current.IsPointerOverGameObject() && GameManager.Instance.ClickedBtn != null)
         {
 
@@ -70,15 +69,23 @@ public class TileScript : MonoBehaviour
             {
                 ColorTile(fullColor);
             }
-            
+
             else if (Input.GetMouseButtonDown(0))
             {
                 PlaceTower();
             }
         }
-
-        
-        
+        else if (!EventSystem.current.IsPointerOverGameObject() && GameManager.Instance.ClickedBtn == null && Input.GetMouseButtonDown(0))
+        {
+            if (myTower != null)
+            {
+                GameManager.Instance.SelectTower(myTower);
+            }
+            else
+            {
+                GameManager.Instance.DeselectTower();
+            }
+        }
     }
 
     private void OnMouseExit()
@@ -99,14 +106,17 @@ public class TileScript : MonoBehaviour
 
         tower.transform.SetParent(transform);
 
+        this.myTower = tower.transform.GetChild(0).GetComponent<Tower>();
+
         IsEmpty = false;
 
         ColorTile(Color.white);
 
+        myTower.Price = GameManager.Instance.ClickedBtn.Price;
+
         GameManager.Instance.BuyTower();
 
         WalkAble = false;
-
 
     }
 

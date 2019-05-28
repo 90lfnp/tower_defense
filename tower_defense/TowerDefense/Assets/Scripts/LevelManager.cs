@@ -22,7 +22,25 @@ public class LevelManager : Singleton<LevelManager>
     [SerializeField]
     private GameObject redPortalPrefeb;
 
+    public Portal BluePortal { get; set; }
+
     private Point mapSize;
+
+    private Stack<Node> path;
+
+    public Stack<Node> Path
+    {
+        get
+        {
+            if (path == null)
+            {
+                GeneratePath();
+            }
+
+            return new Stack<Node>(new Stack<Node>(path));
+        }
+    }
+
 
 
     public Dictionary<Point, TileScript> Tiles { get; set; }
@@ -32,7 +50,9 @@ public class LevelManager : Singleton<LevelManager>
         get {return tilePrefebs[0].GetComponent<SpriteRenderer>().sprite.bounds.size.x; }
     }
 
-    
+    public Point BlueSpawn { get => blueSpawn;}
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -84,10 +104,23 @@ public class LevelManager : Singleton<LevelManager>
     }
     private void PlaceTile(string tileType, int x, int y, Vector3 worldStart)
     {
+        bool walkAble;
+        bool isEmpty;
+        if(string.Equals(tileType, "0"))
+        {
+            walkAble = true;
+            isEmpty = false;
+        }
+        else
+        {
+            walkAble = false;
+            isEmpty = true;
+        }
+
         int tileIndex = int.Parse(tileType);
         TileScript newTile = Instantiate(tilePrefebs[tileIndex]).GetComponent<TileScript>();
         
-        newTile.GetComponent<TileScript>().Setup(new Point(x, y), new Vector3(worldStart.x + (tileSize * x), worldStart.y - (tileSize * y), 0), map);
+        newTile.GetComponent<TileScript>().Setup(new Point(x, y), new Vector3(worldStart.x + (tileSize * x), worldStart.y - (tileSize * y), 0), map, walkAble, isEmpty);
 
        
 
@@ -106,8 +139,9 @@ public class LevelManager : Singleton<LevelManager>
     private void SpawnPortals()
     {
         blueSpawn = new Point(0, 4);
-
-        Instantiate(bluePortalPrefeb, Tiles[blueSpawn].GetComponent<TileScript>().WorldPosition, Quaternion.identity);
+        GameObject tmp = (GameObject)Instantiate(bluePortalPrefeb, Tiles[BlueSpawn].GetComponent<TileScript>().WorldPosition, Quaternion.identity);
+        BluePortal = tmp.GetComponent<Portal>();
+        BluePortal.name = "BluePortal";
 
         redSpawn = new Point(19, 4);
 
@@ -117,6 +151,11 @@ public class LevelManager : Singleton<LevelManager>
     public bool InBounds(Point position)
     {
         return position.X >= 0 && position.Y >= 0 && position.X < mapSize.X && position.Y < mapSize.Y;
+    }
+
+    public void GeneratePath()
+    {
+        path = Astar.GetPath(BlueSpawn, redSpawn);
     }
     
 
